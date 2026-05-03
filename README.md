@@ -11,11 +11,19 @@ Monorepo for the Dobeu Design System v2. See the spec at `Design-System/docs/spe
 
 ## Setup
 
-```
+```bash
 pnpm install
 pnpm build
 pnpm test
 ```
+
+## Figma Pro rollout docs
+
+- `docs/figma-pro-library-setup.md` - canonical Figma library structure and publish governance
+- `docs/token-contract.md` - Figma-to-code token mapping contract
+- `docs/component-parity-checklist.md` - variant/props parity checklist
+- `docs/design-to-code-workflow.md` - end-to-end delivery workflow
+- `docs/changeset-policy.md` - package release/versioning policy
 
 ## Plan
 

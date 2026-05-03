@@ -1,0 +1,7 @@
+{
+  "$comment": "Optional: published-library component keys for GET /v1/components/:key (FIGMA_ACCESS_TOKEN). Canonical file in repo is nTTFiPqhEBvbzw5ZDe2JIa; run figma:resolve-nodes after publishing to refresh env exports for that library.",
+  "button": "eac598a3cc5fce639dc4aec98716b334e3d65d3e",
+  "input": "b21081e3ad6abe42271e954622fad7d79ab51bd2",
+  "card": "8d6fb68e1df6afb725f104df742dfaa879cdae3a",
+  "navbar": "3c217a5662f67c621d3e1ac88762283ddbf5be05"
+}

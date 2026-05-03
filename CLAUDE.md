@@ -13,6 +13,14 @@ Authoritative spec for this monorepo:
 
 These specs live in the parent workspace tree (synced to Drive at `/dobeu-eco/Implementation/specs/`). Read them before non-trivial work.
 
+In-repo governance docs (`docs/`):
+
+- `docs/figma-pro-library-setup.md` — canonical Figma library structure & publish governance
+- `docs/token-contract.md` — Figma ↔ code token mapping contract (read before editing `@dobeu/tokens`)
+- `docs/component-parity-checklist.md` — variant/props parity checklist for `components-react`
+- `docs/design-to-code-workflow.md` — end-to-end delivery workflow
+- `docs/changeset-policy.md` — release/versioning policy (read before adding a changeset)
+
 ## Commands
 
 Package manager is pinned to `pnpm@10.33.2` via `packageManager`. Turbo orchestrates per-package tasks.
