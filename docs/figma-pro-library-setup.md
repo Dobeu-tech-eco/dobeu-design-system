@@ -50,4 +50,4 @@ This document defines the canonical Figma Pro library structure for Dobeu Design
 - Property controls map to code-safe primitive types (`string`, `boolean`, `enum`).
 - Dev mode specs include spacing, sizing, and typography tokens.
 - Code Connect defaults to **Dobeu Tech Solutions Design System** (`nTTFiPqhEBvbzw5ZDe2JIa`) with node ids for `Button`, `Input`, `Card`, and `Navbar` documented above. Override with `DOBEU_FIGMA_FILE_URL` (base design URL, no `node-id`) plus `DOBEU_FIGMA_NODE_BUTTON`, `DOBEU_FIGMA_NODE_INPUT`, `DOBEU_FIGMA_NODE_CARD`, and `DOBEU_FIGMA_NODE_NAVBAR` when mapping to a different file (e.g. another branch or published library copy).
-- Resolve published library `node_id` values from component keys using `pnpm --filter @dobeu/components-react figma:resolve-nodes` with `FIGMA_ACCESS_TOKEN` set. Keys live in `packages/components-react/figma/library-component-keys.json`.
+- Resolve published library `node_id` values from component keys using `pnpm --filter @dobeu-private/components-react figma:resolve-nodes` with `FIGMA_ACCESS_TOKEN` set. Keys live in `packages/components-react/figma/library-component-keys.json`.

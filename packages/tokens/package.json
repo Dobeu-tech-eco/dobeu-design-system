@@ -1,7 +1,6 @@
 {
-  "name": "@dobeu/tokens",
+  "name": "@dobeu-private/tokens",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,8 +17,12 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://registry.figma.com/npm/ab968257-ad2f-462c-83e8-8cded2c9a6c4/registry/",
+    "access": "restricted"
+  },
   "scripts": {
-    "build": "node ./scripts/build.mjs && tsc -p tsconfig.json",
+    "build": "node ./scripts/build.mjs && tsc -p tsconfig.build.json",
     "test": "vitest run",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit"

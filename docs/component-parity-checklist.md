@@ -1,6 +1,6 @@
 # Component Parity Checklist
 
-Use this checklist when implementing Figma components in `@dobeu/components-react`.
+Use this checklist when implementing Figma components in `@dobeu-private/components-react`.
 
 ## Required Parity Dimensions
 
@@ -8,7 +8,7 @@ Use this checklist when implementing Figma components in `@dobeu/components-reac
 - Property parity: text, enum, boolean, and slot properties map directly.
 - Interaction parity: hover/focus/disabled/loading visual states are represented.
 - Accessibility parity: semantic roles and labels are carried into implementation.
-- Token parity: hardcoded colors/spacings are avoided in favor of `@dobeu/tokens` values.
+- Token parity: hardcoded colors/spacings are avoided in favor of `@dobeu-private/tokens` values.
 
 ## Initial Primitive Set
 

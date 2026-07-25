@@ -1,29 +1,32 @@
 {
-  "name": "@dobeu/components-react",
+  "name": "@dobeu-private/components-react",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/src/index.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
     "dist",
     "figma"
   ],
+  "publishConfig": {
+    "registry": "https://registry.figma.com/npm/ab968257-ad2f-462c-83e8-8cded2c9a6c4/registry/",
+    "access": "restricted"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest run",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "figma:resolve-nodes": "node ./scripts/figma-resolve-code-connect-nodes.mjs"
   },
   "peerDependencies": {
-    "@dobeu/tokens": "workspace:*",
+    "@dobeu-private/tokens": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

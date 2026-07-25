@@ -21,7 +21,7 @@ This contract prevents drift between Figma and package outputs.
 
 ## Output Contract
 
-`@dobeu/tokens` must always produce all four artifacts:
+`@dobeu-private/tokens` must always produce all four artifacts:
 
 1. `dist/css/variables.css`
 2. `dist/tailwind/tokens.json`

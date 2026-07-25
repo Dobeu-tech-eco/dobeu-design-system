@@ -4,8 +4,8 @@ Use this policy for all user-facing package changes.
 
 ## When a changeset is required
 
-- New tokens or token value changes in `@dobeu/tokens`
-- New or changed component APIs in `@dobeu/components-react`
+- New tokens or token value changes in `@dobeu-private/tokens`
+- New or changed component APIs in `@dobeu-private/components-react`
 - Visual behavior changes that affect consumers
 
 ## Changeset guidance

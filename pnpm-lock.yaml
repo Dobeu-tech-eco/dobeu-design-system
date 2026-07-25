@@ -20,6 +20,9 @@ importers:
 
   packages/components-react:
     dependencies:
+      '@dobeu-private/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       react:
         specifier: ^19.0.0
         version: 19.2.5

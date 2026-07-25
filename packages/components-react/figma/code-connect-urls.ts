@@ -7,7 +7,7 @@
  * `DOBEU_FIGMA_NODE_*` when mapping to another file or branch.
  *
  * To resolve node ids from **published** library component keys via Figma
- * REST, run `pnpm --filter @dobeu/components-react figma:resolve-nodes` with
+ * REST, run `pnpm --filter @dobeu-private/components-react figma:resolve-nodes` with
  * `FIGMA_ACCESS_TOKEN` set (see `figma/library-component-keys.json`).
  */
 
