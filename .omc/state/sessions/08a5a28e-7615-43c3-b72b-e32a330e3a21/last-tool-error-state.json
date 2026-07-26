@@ -1,0 +1,7 @@
+{
+  "tool_name": "PowerShell",
+  "tool_input_preview": "{\"command\":\"Set-Location C:\\\\Users\\\\JeremyWilliams\\\\repos\\\\dobeu-design-system\\n\\\"=== npm auth ===\\\"\\ntry { \\\"whoami: $(npm whoami 2>&1)\\\" } catch { \\\"whoami failed: $_\\\" }\\n\\\"\\\"\\n\\\"=== does the @dobe...",
+  "error": "Exit code 1\n=== npm auth ===\r\nwhoami: npm error code E401 npm error 401 Unauthorized - GET https://registry.npmjs.org/-/whoami npm error A complete log of this run can be found in: C:\\Users\\JeremyWilliams\\AppData\\Local\\npm-cache\\_logs\\2026-07-26T00_20_56_452Z-debug-0.log\r\n\r\n=== does the @dobeu scope / package exist on npm? ===\r\n@dobeu/tokens -> npm error code E404 npm error 404 Not Found - GET https://registry.npmjs.org/@dobeu%2ftokens - Not found npm error 404 npm error 404  The requested resou...",
+  "timestamp": "2026-07-26T00:20:59.853Z",
+  "retry_count": 1
+}

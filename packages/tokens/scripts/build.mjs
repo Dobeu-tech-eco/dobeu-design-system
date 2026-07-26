@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import tokenData from "../src/tokens.json" with { type: "json" };
 
@@ -103,6 +103,9 @@ const outputs = [
   { path: "dist/webflow/tokens.json", data: JSON.stringify(webflowTokens, null, 2) }
 ];
 
+// Clean first so renamed/removed outputs never linger in dist (this script runs
+// before tsc, which then emits src/** flat into dist/ via tsconfig.build.json).
+await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir, { recursive: true });
 
 for (const output of outputs) {

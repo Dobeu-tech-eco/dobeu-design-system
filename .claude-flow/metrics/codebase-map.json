@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-07-26T00:43:10.020Z",
+  "projectRoot": "C:\\Users\\JeremyWilliams\\repos\\dobeu-design-system",
+  "structure": {
+    "hasPackageJson": true,
+    "hasTsConfig": false,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1785026590021
+}

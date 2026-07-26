@@ -1,8 +1,8 @@
-export { DobeuButton } from "./Button";
-export type { DobeuButtonProps } from "./Button";
-export { DobeuInput } from "./Input";
-export type { DobeuInputProps } from "./Input";
-export { DobeuCard } from "./Card";
-export type { DobeuCardProps } from "./Card";
-export { DobeuNavbar } from "./Navbar";
-export type { DobeuNavbarProps } from "./Navbar";
+export { DobeuButton } from "./Button.js";
+export type { DobeuButtonProps } from "./Button.js";
+export { DobeuInput } from "./Input.js";
+export type { DobeuInputProps } from "./Input.js";
+export { DobeuCard } from "./Card.js";
+export type { DobeuCardProps } from "./Card.js";
+export { DobeuNavbar } from "./Navbar.js";
+export type { DobeuNavbarProps } from "./Navbar.js";

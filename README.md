@@ -4,10 +4,10 @@ Monorepo for the Dobeu Design System v2. See the spec at `Design-System/docs/spe
 
 ## Packages
 
-- `@dobeu/tokens` — design tokens (CSS vars, Tailwind config, Framer JSON, Webflow JSON)
-- `@dobeu/components-react` — React components mapped via Code Connect
-- `@dobeu/icons` — icon set
-- `@dobeu/motifs` — per-property illustration kits
+- `@dobeu-tech-eco/tokens` — design tokens (CSS vars, Tailwind config, Framer JSON, Webflow JSON)
+- `@dobeu-tech-eco/components-react` — React components mapped via Code Connect
+- `@dobeu-tech-eco/icons` — icon set
+- `@dobeu-tech-eco/motifs` — per-property illustration kits
 
 ## Setup
 

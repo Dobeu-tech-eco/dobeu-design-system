@@ -50,4 +50,12 @@ This document defines the canonical Figma Pro library structure for Dobeu Design
 - Property controls map to code-safe primitive types (`string`, `boolean`, `enum`).
 - Dev mode specs include spacing, sizing, and typography tokens.
 - Code Connect defaults to **Dobeu Tech Solutions Design System** (`nTTFiPqhEBvbzw5ZDe2JIa`) with node ids for `Button`, `Input`, `Card`, and `Navbar` documented above. Override with `DOBEU_FIGMA_FILE_URL` (base design URL, no `node-id`) plus `DOBEU_FIGMA_NODE_BUTTON`, `DOBEU_FIGMA_NODE_INPUT`, `DOBEU_FIGMA_NODE_CARD`, and `DOBEU_FIGMA_NODE_NAVBAR` when mapping to a different file (e.g. another branch or published library copy).
-- Resolve published library `node_id` values from component keys using `pnpm --filter @dobeu/components-react figma:resolve-nodes` with `FIGMA_ACCESS_TOKEN` set. Keys live in `packages/components-react/figma/library-component-keys.json`.
+- Resolve published library `node_id` values from component keys using `pnpm --filter @dobeu-tech-eco/components-react figma:resolve-nodes` with `FIGMA_ACCESS_TOKEN` set. Keys live in `packages/components-react/figma/library-component-keys.json`.
+- **Supplying the token.** `FIGMA_ACCESS_TOKEN` is a Figma *personal access token* (`figp_…`), not an npm credential — no package install or build in this repo needs it. The repo keeps it in the gitignored `.env`, but nothing auto-loads that file (there is no `dotenv` dependency), so pass it explicitly for the one command that reads it:
+
+  ```powershell
+  $env:FIGMA_ACCESS_TOKEN = ((Get-Content .env | Select-String '^FIGMA_ACCESS_TOKEN=') -split '=', 2)[1]
+  pnpm --filter @dobeu-tech-eco/components-react figma:resolve-nodes
+  ```
+
+  The variable name must be exactly `FIGMA_ACCESS_TOKEN` — that is what `packages/components-react/scripts/figma-resolve-code-connect-nodes.mjs` reads.

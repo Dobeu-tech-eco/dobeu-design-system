@@ -1,29 +1,37 @@
 {
-  "name": "@dobeu/components-react",
+  "name": "@dobeu-tech-eco/components-react",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/src/index.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
     "dist",
     "figma"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobeu-tech-eco/dobeu-design-system.git",
+    "directory": "packages/components-react"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest run",
     "lint": "tsc -p tsconfig.json --noEmit",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "figma:resolve-nodes": "node ./scripts/figma-resolve-code-connect-nodes.mjs"
   },
   "peerDependencies": {
-    "@dobeu/tokens": "workspace:*",
+    "@dobeu-tech-eco/tokens": "workspace:^",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

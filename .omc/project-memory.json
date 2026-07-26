@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1784993081594,
+  "projectRoot": "C:\\Users\\JeremyWilliams\\repos\\dobeu-design-system",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "pnpm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "pnpm build",
+    "testCommand": "pnpm test",
+    "lintCommand": "pnpm lint",
+    "devCommand": null,
+    "scripts": {
+      "build": "turbo build",
+      "test": "turbo test",
+      "lint": "turbo lint",
+      "typecheck": "turbo typecheck",
+      "publish-packages": "turbo build && changeset publish"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": true,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 5,
+      "lastAccessed": 1784993081460,
+      "keyFiles": [
+        "changeset-policy.md",
+        "component-parity-checklist.md",
+        "design-to-code-workflow.md",
+        "figma-pro-library-setup.md",
+        "token-contract.md"
+      ]
+    },
+    "packages": {
+      "path": "packages",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1784993081461,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "packages/tokens/package.json",
+      "accessCount": 3,
+      "lastAccessed": 1785025616962,
+      "type": "file"
+    },
+    {
+      "path": "docs/figma-pro-library-setup.md",
+      "accessCount": 2,
+      "lastAccessed": 1785005833727,
+      "type": "file"
+    },
+    {
+      "path": "packages/components-react/package.json",
+      "accessCount": 2,
+      "lastAccessed": 1785025622112,
+      "type": "file"
+    },
+    {
+      "path": ".changeset/fix-tokens-entry-resolution.md",
+      "accessCount": 1,
+      "lastAccessed": 1785024904770,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

@@ -4,4 +4,4 @@ export {
   spacingTokens,
   radiusTokens,
   tldAccentTokens
-} from "./tokens";
+} from "./tokens.js";

@@ -1,4 +1,4 @@
-import tokenData from "./tokens.json";
+import tokenData from "./tokens.json" with { type: "json" };
 
 export const colorTokens = tokenData.colorTokens;
 export const typographyTokens = tokenData.typographyTokens;

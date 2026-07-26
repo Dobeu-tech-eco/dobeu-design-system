@@ -7,8 +7,8 @@ This workflow defines how Dobeu ships design system changes from Figma Pro into 
 1. Propose change in Figma (`Foundations` or `Components`).
 2. Review and publish Figma library update.
 3. Implement matching change in repository package(s):
-   - `@dobeu/tokens` for variable/token changes
-   - `@dobeu/components-react` for component changes
+   - `@dobeu-tech-eco/tokens` for variable/token changes
+   - `@dobeu-tech-eco/components-react` for component changes
 4. Run package tests and workspace checks.
 5. Add changeset for user-facing package updates.
 6. Merge and publish package artifacts.
