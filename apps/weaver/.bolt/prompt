@@ -1,0 +1,9 @@
+This is **Design System Weaver**, a pnpm-workspace monorepo (see CLAUDE.md and docs/PRODUCTION_PLAN.md).
+
+- `artifacts/design-forge` — the primary React 19 / Vite 7 / Tailwind v4 SPA. This is what bolt boots (`.stackblitzrc` startCommand). It requires `PORT` and `BASE_PATH` env vars (already set).
+- `artifacts/api-server` — Express 5 API. Needs `DATABASE_URL` (Postgres) and `PORT`. It uses the `pg` TCP driver, which does NOT run in WebContainers — to run the API here, swap to the Neon serverless HTTP driver and add a vite `/api` proxy.
+- `lib/*` — shared libs. The API contract is generated from `lib/api-spec/openapi.yaml` (Orval → `api-zod` + `api-client-react`); never hand-edit `**/generated/**`.
+
+Package manager is **pnpm only** (a `preinstall` hook rejects npm/yarn). Do not disable `minimumReleaseAge` in `pnpm-workspace.yaml`.
+
+Interim goal on bolt: get the design-forge UI previewing. API calls to `/api` will fail until the API path is wired (Neon HTTP driver + proxy), or point the client at a deployed API via `setBaseUrl` in `lib/api-client-react`.

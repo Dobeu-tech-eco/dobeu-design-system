@@ -1,0 +1,667 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: catalog
+    description: Design system catalog
+  - name: projects
+    description: Imported design sources and their extracted profiles
+  - name: generations
+    description: Generated design systems
+  - name: stats
+    description: Aggregate statistics
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /design-systems:
+    get:
+      operationId: listDesignSystems
+      tags: [catalog]
+      summary: List the catalog of target design systems
+      responses:
+        "200":
+          description: Catalog of supported open-source design systems
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DesignSystem"
+  /stats:
+    get:
+      operationId: getStats
+      tags: [stats]
+      summary: Aggregate usage statistics
+      responses:
+        "200":
+          description: Counts of projects and generations plus per-system usage
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+  /projects:
+    get:
+      operationId: listProjects
+      tags: [projects]
+      summary: List all projects, newest first
+      responses:
+        "200":
+          description: All imported projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+  /projects/import/markdown:
+    post:
+      operationId: importMarkdown
+      tags: [projects]
+      summary: Import a design.md file and analyze it into a design profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MarkdownImportInput"
+      responses:
+        "201":
+          description: Project created with extracted design profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          description: Invalid input or analysis failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /projects/import/figma:
+    post:
+      operationId: importFigma
+      tags: [projects]
+      summary: Import a .fig file (base64) and analyze it into a design profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FigmaImportInput"
+      responses:
+        "201":
+          description: Project created with extracted design profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          description: Invalid input or analysis failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /projects/import/repo:
+    post:
+      operationId: importRepo
+      tags: [projects]
+      summary: Import a public Git repository URL and analyze its design language
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepoImportInput"
+      responses:
+        "201":
+          description: Project created with extracted design profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          description: Invalid URL, unreachable repo, or analysis failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /projects/{id}:
+    get:
+      operationId: getProject
+      tags: [projects]
+      summary: Get one project including its generations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Project detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateProject
+      tags: [projects]
+      summary: Update a project's name or tweak its design profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectUpdate"
+      responses:
+        "200":
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteProject
+      tags: [projects]
+      summary: Delete a project and its generations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /projects/{id}/generations:
+    post:
+      operationId: createGeneration
+      tags: [generations]
+      summary: Generate the selected design system themed to the project's profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerationInput"
+      responses:
+        "201":
+          description: Generation created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Generation"
+        "400":
+          description: Unknown design system or generation failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /generations/{id}:
+    get:
+      operationId: getGeneration
+      tags: [generations]
+      summary: Get one generation including its files
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Generation detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Generation"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteGeneration
+      tags: [generations]
+      summary: Delete a generation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /generations/{id}/download:
+    get:
+      operationId: downloadGeneration
+      tags: [generations]
+      summary: Download the generation as a zip
+      description: >
+        scope=package downloads only the generated design system files.
+        scope=codebase re-fetches the imported repository and injects the
+        generated files into it (repo-sourced projects only).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: scope
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [package, codebase]
+            default: package
+      responses:
+        "200":
+          description: Zip archive
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Codebase scope requested for a non-repo project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    DesignSystem:
+      type: object
+      description: A supported open-source target design system
+      required: [id, name, organization, repoUrl, description, themingFormat, outputFormats, brandColor]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        organization:
+          type: string
+        repoUrl:
+          type: string
+        description:
+          type: string
+        themingFormat:
+          type: string
+          description: Human-readable summary of how this system is themed
+        outputFormats:
+          type: array
+          description: File kinds produced when generating for this system
+          items:
+            type: string
+        brandColor:
+          type: string
+          description: Representative hex color for catalog display
+    PaletteColor:
+      type: object
+      required: [name, hex]
+      properties:
+        name:
+          type: string
+        hex:
+          type: string
+        role:
+          type: ["string", "null"]
+    ProfileColors:
+      type: object
+      required: [primary, background, text]
+      properties:
+        primary:
+          type: string
+          description: Hex color
+        secondary:
+          type: ["string", "null"]
+        accent:
+          type: ["string", "null"]
+        background:
+          type: string
+        surface:
+          type: ["string", "null"]
+        text:
+          type: string
+        muted:
+          type: ["string", "null"]
+        border:
+          type: ["string", "null"]
+        success:
+          type: ["string", "null"]
+        warning:
+          type: ["string", "null"]
+        danger:
+          type: ["string", "null"]
+        palette:
+          type: array
+          items:
+            $ref: "#/components/schemas/PaletteColor"
+    ProfileTypography:
+      type: object
+      required: [headingFont, bodyFont]
+      properties:
+        headingFont:
+          type: string
+        bodyFont:
+          type: string
+        monoFont:
+          type: ["string", "null"]
+        baseSizePx:
+          type: ["number", "null"]
+        scaleRatio:
+          type: ["number", "null"]
+        headingWeight:
+          type: ["number", "null"]
+        bodyWeight:
+          type: ["number", "null"]
+    ProfileSpacing:
+      type: object
+      required: [basePx, density]
+      properties:
+        basePx:
+          type: number
+        density:
+          type: string
+          enum: [compact, comfortable, spacious]
+    ProfileRadius:
+      type: object
+      required: [basePx, style]
+      properties:
+        basePx:
+          type: number
+        style:
+          type: string
+          enum: [sharp, subtle, rounded, pill]
+    ProfileShadows:
+      type: object
+      required: [style]
+      properties:
+        style:
+          type: string
+          enum: [none, subtle, elevated, dramatic]
+    ProfileTone:
+      type: object
+      required: [summary, descriptors]
+      properties:
+        summary:
+          type: string
+        descriptors:
+          type: array
+          items:
+            type: string
+    DesignProfile:
+      type: object
+      description: The extracted design language of an imported source
+      required: [colors, typography, spacing, radius, shadows, tone]
+      properties:
+        colors:
+          $ref: "#/components/schemas/ProfileColors"
+        typography:
+          $ref: "#/components/schemas/ProfileTypography"
+        spacing:
+          $ref: "#/components/schemas/ProfileSpacing"
+        radius:
+          $ref: "#/components/schemas/ProfileRadius"
+        shadows:
+          $ref: "#/components/schemas/ProfileShadows"
+        tone:
+          $ref: "#/components/schemas/ProfileTone"
+    Project:
+      type: object
+      required: [id, name, sourceType, sourceRef, status, designProfile, warnings, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sourceType:
+          type: string
+          enum: [markdown, figma, repo]
+        sourceRef:
+          type: string
+          description: Original file name or repository URL
+        repoProvider:
+          type: ["string", "null"]
+          description: github, gitlab, bitbucket, or git for generic clones
+        repoBranch:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [ready, failed]
+        designProfile:
+          $ref: "#/components/schemas/DesignProfile"
+        warnings:
+          type: array
+          items:
+            type: string
+        sourceSummary:
+          type: ["string", "null"]
+          description: Distilled raw signals the analyzer extracted from the source
+        generationCount:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    GenerationSummary:
+      type: object
+      required: [id, projectId, designSystemId, designSystemName, fileCount, createdAt]
+      properties:
+        id:
+          type: integer
+        projectId:
+          type: integer
+        designSystemId:
+          type: string
+        designSystemName:
+          type: string
+        fileCount:
+          type: integer
+        createdAt:
+          type: string
+    ProjectDetail:
+      allOf:
+        - $ref: "#/components/schemas/Project"
+        - type: object
+          required: [generations]
+          properties:
+            generations:
+              type: array
+              items:
+                $ref: "#/components/schemas/GenerationSummary"
+    GenerationFile:
+      type: object
+      required: [path, content, language]
+      properties:
+        path:
+          type: string
+        content:
+          type: string
+        language:
+          type: string
+          description: Language hint for syntax display (css, scss, typescript, json, markdown)
+        description:
+          type: ["string", "null"]
+    Generation:
+      type: object
+      required: [id, projectId, designSystemId, designSystemName, files, notes, createdAt]
+      properties:
+        id:
+          type: integer
+        projectId:
+          type: integer
+        designSystemId:
+          type: string
+        designSystemName:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/GenerationFile"
+        notes:
+          type: string
+          description: Mapping rationale explaining how the profile was translated
+        createdAt:
+          type: string
+    MarkdownImportInput:
+      type: object
+      required: [fileName, content]
+      properties:
+        fileName:
+          type: string
+          minLength: 1
+          maxLength: 300
+        content:
+          type: string
+          minLength: 1
+          maxLength: 2000000
+        name:
+          type: string
+          description: Optional project name; defaults to a name derived from the file
+    FigmaImportInput:
+      type: object
+      required: [fileName, contentBase64]
+      properties:
+        fileName:
+          type: string
+          minLength: 1
+          maxLength: 300
+        contentBase64:
+          type: string
+          minLength: 1
+          description: Raw .fig file bytes, base64-encoded (max ~30MB decoded)
+        name:
+          type: string
+    RepoImportInput:
+      type: object
+      required: [repoUrl]
+      properties:
+        repoUrl:
+          type: string
+          minLength: 8
+          maxLength: 500
+          description: Public repository URL (GitHub, GitLab, Bitbucket, or any public .git URL)
+        name:
+          type: string
+    ProjectUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        designProfile:
+          $ref: "#/components/schemas/DesignProfile"
+    GenerationInput:
+      type: object
+      required: [designSystemId]
+      properties:
+        designSystemId:
+          type: string
+          minLength: 1
+    SystemUsage:
+      type: object
+      required: [designSystemId, name, count]
+      properties:
+        designSystemId:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+    Stats:
+      type: object
+      required: [projectCount, generationCount, systemUsage]
+      properties:
+        projectCount:
+          type: integer
+        generationCount:
+          type: integer
+        systemUsage:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemUsage"
