@@ -8,6 +8,7 @@ Monorepo for the Dobeu Design System v2. See the spec at `Design-System/docs/spe
 - `@dobeu/components-react` — React components mapped via Code Connect
 - `@dobeu/icons` — icon set
 - `@dobeu/motifs` — per-property illustration kits
+- Weaver app — housed at `apps/weaver/` (tool that generates design-system packages from markdown/Figma/repo sources); see `apps/weaver/docs/PRODUCTION_PLAN.md`
 
 ## Setup
 
