@@ -1,9 +1,0 @@
-{
-  "installDependencies": true,
-  "startCommand": "pnpm --filter @workspace/design-forge run dev",
-  "env": {
-    "NODE_ENV": "development",
-    "PORT": "3000",
-    "BASE_PATH": "/"
-  }
-}
